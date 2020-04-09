@@ -8,7 +8,7 @@
 #ifndef HOMEWORK4_H_
 #define HOMEWORK4_H_
 
-typedef enum {first, second, third, fourth} stateMachine_t;
+typedef enum {first, second, third, fourth} stateMachine_t; //determine state of '2534' input
 
 // This function initializes the board by turning off the Watchdog Timer.
 void initBoard();

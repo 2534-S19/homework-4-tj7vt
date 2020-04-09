@@ -11,7 +11,6 @@ int main(void)
     static stateMachine_t print = first;
     int i = 0;
 
-
     // Stops the Watchdog timer.
     initBoard();
 
@@ -29,7 +28,6 @@ int main(void)
          EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION // Oversampling
     };
 
-
     // TODO: Make sure Tx AND Rx pins of EUSCI_A0 work for UART and not as regular GPIO pins.
     GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P1, GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
 
@@ -38,7 +36,6 @@ int main(void)
 
     // TODO: Enable EUSCI_A0
     UART_enableModule(EUSCI_A0_BASE);
-
 
     while(1)
     {
@@ -59,7 +56,6 @@ int main(void)
             UART_transmitData(EUSCI_A0_BASE, rChar);
             entry = charFSM(rChar, &print);
         }
-
 
         // TODO: If the FSM indicates a successful string entry, transmit the response string.
         //       Check the transmit interrupt flag prior to transmitting each character and moving on to the next one.
@@ -88,12 +84,12 @@ bool charFSM(char rChar, stateMachine_t *print)
 {
     bool finished = false;
 
-    if (rChar == '2') {
-        *print = second;
+    if (rChar == '2') { //restarts the state machine if 2 is pressed
+        *print = second; //move to next state
         finished = false;
     }
-    else if (rChar == '5' && *print == second) {
-        *print = third;
+    else if (rChar == '5' && *print == second) { //if previous state is '2' pressed and current pressed is '5'
+        *print = third; //etc.
         finished = false;
     }
     else if (rChar == '3' && *print == third) {
